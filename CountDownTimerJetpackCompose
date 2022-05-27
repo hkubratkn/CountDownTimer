@@ -1,0 +1,37 @@
+
+class MainActivity : ComponentActivity(){
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+        setContent {
+            PomodoroTheme {
+                Surface {
+                    Column(
+                        modifier=Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        var score by remember{ mutableStateOf(0)}
+                        Text(
+                            text= score.toString(),
+                            modifier=Modifier.padding(bottom=20.dp)
+                        )
+                        Button(
+                            onClick = {
+                                object : CountDownTimer(5000,1000){
+                                    override fun onTick(p0: Long) {
+                                        score = p0.toInt()
+                                    }
+                                    override fun onFinish() {
+                                        score = 99999
+                                    }
+                                }.start()
+                            }
+                        ) {
+                            Text(text = "START")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
