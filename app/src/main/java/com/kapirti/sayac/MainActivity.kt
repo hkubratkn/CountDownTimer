@@ -10,9 +10,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        private val _finishClick = mutableStateOf(false)
+        val finishClick: Boolean
+            get() = _finishClick.value
+
         object : CountDownTimer(15000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 textView.text = "kalan${millisUntilFinished / 1000}"
+                
+                if(_finishClick.value){
+                    cancel()
+                    _finishBtnStatus.value = false
+                }
             }
 
             override fun onFinish() {
